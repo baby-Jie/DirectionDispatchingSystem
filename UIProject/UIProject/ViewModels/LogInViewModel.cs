@@ -13,7 +13,7 @@ namespace UIProject.ViewModels
         #region Properties
 
         #region 用户名
-        private string _UserName;
+        private string _UserName = "123";
         public string UserName
         {
             get { return _UserName; }
@@ -26,7 +26,7 @@ namespace UIProject.ViewModels
         #endregion
 
         #region 密码
-        private string _UserPass;
+        private string _UserPass = "123";
 
         public string UserPass
         {
