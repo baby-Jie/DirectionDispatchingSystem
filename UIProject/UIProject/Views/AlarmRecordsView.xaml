@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="UIProject.Views.AlarmRecordsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UIProject.Views"
+             xmlns:model="clr-namespace:UIProject.Models"
+             xmlns:behavior="clr-namespace:UIProject.Behaviors"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="450">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type model:AlarmRecord}">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,0,0,5">
+                    <TextBlock Text="{Binding ptzname}"  Margin="10,0,0,0" />
+                    <TextBlock Text="-" Margin="10,0,0,0" />
+                    <TextBlock Text="{Binding direction}" Margin="10,0,0,10" />
+                </StackPanel>
+                <TextBlock Text="{Binding time}"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="25,0,0,10"/>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <materialDesign:ColorZone  Padding="8"   materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="PrimaryMid" >
+            <DockPanel Height="20" DockPanel.Dock="Top">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">报 警 记 录</TextBlock>
+            </DockPanel>
+        </materialDesign:ColorZone>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="#FF9512C5" BorderThickness="1">
+                <ListBox ItemsSource="{Binding AlarmRes}" ScrollViewer.HorizontalScrollBarVisibility="Auto" Name="lst" HorizontalAlignment="Center"></ListBox>
+            </Border>
+            <!--<GridSplitter Grid.Column="1" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Stretch"></GridSplitter>-->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border BorderBrush="AliceBlue" BorderThickness="3" Margin="10">
+                    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <Image  Stretch="Uniform" Name="imgFireAlarmPictures" Source="{Binding ElementName=lst,Path=SelectedItem.ImagePath}">
+                        <i:Interaction.Behaviors>
+                            <behavior:ZoomAndDrangeBehavior></behavior:ZoomAndDrangeBehavior>
+                        </i:Interaction.Behaviors>
+                    </Image>
+                    </ScrollViewer>
+                </Border>
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Grid Width="200" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center"  Text="{Binding ElementName=lst, Path=SelectedItem.time}" HorizontalAlignment="Center" FontSize="16" Margin="0,20,0,0"/>
+                        <TextBlock  VerticalAlignment="Top" Text="{Binding ElementName=lst, Path=SelectedItem.approver}" HorizontalAlignment="Center" Grid.Row="1" FontSize="16"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" >
+
+                        <Button x:Name="btn_voice"  Margin="50,0,0,0" Style="{StaticResource MaterialDesignRaisedButton}"  Width="144"  Height="50"   FontSize="18" DockPanel.Dock="Left"  >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Phone" Width="24" Height="24" />
+                                    <TextBlock>呼叫中心</TextBlock>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                        <Button x:Name="btn_video"  Style="{StaticResource MaterialDesignRaisedButton}"  Width="144" Height="50"   FontSize="18" Margin="50,0,0,0" DockPanel.Dock="Right" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Phone" Width="24" Height="24" />
+                                    <TextBlock>呼叫现场</TextBlock>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+            
+    </Grid>
+</UserControl>

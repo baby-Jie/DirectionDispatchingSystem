@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="UIProject.Views.CarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UIProject.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone  Padding="8"   materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="PrimaryMid" >
+            <DockPanel Height="20" DockPanel.Dock="Top">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">本 车 状 态</TextBlock>
+            </DockPanel>
+        </materialDesign:ColorZone>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="#FF9512C5" BorderThickness="1">
+                <StackPanel >
+                    <materialDesign:PackIcon Kind="AccountSettings" Width="70" Height="100"  HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="20">001号指挥车</TextBlock>
+                    <GridSplitter BorderBrush="Beige" Margin="0,10" BorderThickness="1" HorizontalAlignment="Stretch"></GridSplitter>
+                    <Grid Margin="0,30">
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="17"></Setter>
+                                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                <Setter Property="Margin" Value="0,10"></Setter>
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="所属单位:" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="南京老山" Grid.Column="1"></TextBlock>
+                        <TextBlock Text="云台状态:" Grid.Row="1" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="开启" Grid.Column="1" Grid.Row="1"></TextBlock>
+
+                        <TextBlock Text="网络信号:" Grid.Row="2" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="良好" Grid.Column="1" Grid.Row="2"></TextBlock>
+
+                        <TextBlock Text="状态:" Grid.Row="3" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock Text="在线" Grid.Column="1" Grid.Row="3"></TextBlock>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <!--<GridSplitter Grid.Column="1" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Stretch"></GridSplitter>-->
+        </Grid>
+       
+
+
+    </Grid>
+</UserControl>

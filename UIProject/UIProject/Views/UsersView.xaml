@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="UIProject.Views.UsersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UIProject.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:model="clr-namespace:UIProject.Models"
+             xmlns:converter="clr-namespace:UIProject.Converters"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="450">
+    <UserControl.Resources>
+        <converter:UserInfoVisibleConverter x:Key="userInfoVisibleConverter"></converter:UserInfoVisibleConverter>
+        <DataTemplate DataType="{x:Type model:Orignize}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition  Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <materialDesign:PackIcon Kind="MapMarker"   Width="30" Height="48"  ></materialDesign:PackIcon>
+                <StackPanel  Grid.Column="1">
+                    <TextBlock FontWeight="Bold" Text="{Binding Name}" Height="25" />
+                    <TextBlock Text="{Binding Level}"  Height="25"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type model:PhoneUser}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition  Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <materialDesign:PackIcon Kind="Account"   Width="30" Height="35"  ></materialDesign:PackIcon>
+                    <TextBlock Height="15" Text="{Binding Status}"></TextBlock>
+                </StackPanel>
+                <StackPanel  Grid.Column="1">
+                    <TextBlock FontWeight="Bold" Text="{Binding Name}" Height="25" />
+                    <TextBlock Text="{Binding Duty}"  Height="25"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone  Padding="8"   materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="PrimaryMid" >
+            <DockPanel Height="20" DockPanel.Dock="Top">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">即 时 呼 叫</TextBlock>
+            </DockPanel>
+        </materialDesign:ColorZone>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="#FF9512C5" BorderThickness="1">
+                <DockPanel>
+                    <Button x:Name="btn_division" DockPanel.Dock="Top" Content="{Binding ButtonContent}" Command="{Binding LastDivision}"></Button>
+                    <ListBox x:Name="list_address"  ItemsSource="{Binding UsersSources}"  ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding ElementName=list_address, Path=SelectedItem}"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ListBox>
+                </DockPanel>
+            </Border>
+            <!--<GridSplitter Grid.Column="1" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Stretch"></GridSplitter>-->
+            <Grid Grid.Column="2">
+                <local:UserInfoView Visibility="{Binding ElementName=list_address, Path=SelectedItem, Converter={StaticResource userInfoVisibleConverter}}" DataContext="{Binding ElementName=list_address,Path=SelectedItem}"></local:UserInfoView>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
